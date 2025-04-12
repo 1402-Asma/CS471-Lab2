@@ -1,0 +1,12 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Book Statistics</h2>
+<table border="1" style="width: 50%; margin: auto; text-align: center;">
+    <tr><th>Total Books</th><td>{{ agg.total_books }}</td></tr>
+    <tr><th>Total Price</th><td>{{ agg.total_price }}</td></tr>
+    <tr><th>Average Price</th><td>{{ agg.average_price }}</td></tr>
+    <tr><th>Maximum Price</th><td>{{ agg.max_price }}</td></tr>
+    <tr><th>Minimum Price</th><td>{{ agg.min_price }}</td></tr>
+</table>
+
+{% endblock %}
