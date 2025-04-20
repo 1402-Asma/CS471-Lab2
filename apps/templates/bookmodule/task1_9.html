@@ -1,0 +1,17 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<h2>Number of Students in Each Department</h2>
+<table border="1">
+    <tr>
+        <th>Department</th>
+        <th>Number of Students</th>
+    </tr>
+    {% for dept in departments %}
+    <tr>
+        <td>{{ dept.name }}</td>
+        <td>{{ dept.num_students }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

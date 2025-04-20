@@ -1,0 +1,21 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<body>
+    <h1>Oldest Student (by ID) in Each Department</h1>
+    <table border="1">
+        <tr>
+            <th>Department</th>
+            <th>Student Name</th>
+            <th>Student ID</th>
+        </tr>
+        {% for item in oldest_students %}
+        <tr>
+            <td>{{ item.department }}</td>
+            <td>{{ item.student_name }}</td>
+            <td>{{ item.student_id }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+{% endblock %}

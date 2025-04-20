@@ -16,3 +16,21 @@ class Student(models.Model):
     age = models.IntegerField()
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     
+class Card(models.Model):
+    card_number = models.IntegerField()
+
+class Department(models.Model):
+    name = models.CharField(max_length=100)
+
+class Course(models.Model):
+    title = models.CharField(max_length=50)
+    code =  models.IntegerField()
+    
+class Student1(models.Model):
+    name = models.CharField(max_length=100)
+    crad = models.OneToOneField(Card,  on_delete=models.PROTECT)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    course = models.ManyToManyField(Course)
+
+
+

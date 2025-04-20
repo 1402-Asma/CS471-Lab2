@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from .models import Book, Student, Address
+from .models import Book, Student, Address, Department, Course, Student1
 from django.db.models import Q, Count, Sum, Min, Max, Avg
 
 
@@ -88,6 +88,33 @@ def task5(request):
         min_price=Min('price')
     )
     return render(request, 'bookmodule/task5.html',{'agg':agg})
+
+def task1_9(request):
+    data = Department.objects.annotate(num_students= Count('student1'))
+    return render(request, 'bookmodule/task1_9.html',{'departments':data})
+
+def task2_9(request):
+    data = Course.objects.annotate(num_students= Count('student1'))
+    return render(request, 'bookmodule/task2_9.html', {'courses':data})
+
+def task3_9(request):
+    oldest_students = []
+    departments = Department.objects.all()
+
+    for dept in departments:
+        oldest_student = Student1.objects.filter(department=dept).order_by('id').first()
+        if oldest_student:
+            oldest_students.append({
+                'department': dept.name,
+                'student_name': oldest_student.name,
+                'student_id': oldest_student.id
+            })
+    return render(request, 'bookmodule/task3_9.html', {'oldest_students': oldest_students})
+
+def task4_9(request):
+    departments = Department.objects.annotate(student_count=Count('student1')).filter(student_count__gt=2).order_by('-student_count')
+    return render(request, 'bookmodule/task4_9.html',{'departments':departments})
+
 
 def studentsbycity(request):
     data = Address.objects.annotate(student_count=Count('student'))
