@@ -1,0 +1,7 @@
+<h1>Edit Book (Using Form)</h1>
+<a href="{% url 'list_books_2' %}">list books</a>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Update Book">
+</form>

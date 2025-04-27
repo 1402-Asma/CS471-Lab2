@@ -1,0 +1,10 @@
+<h1>Edit Book</h1>
+<a href="{% url 'list_books_2' %}">list books</a>
+<form method="post">
+  {% csrf_token %}
+  Title: <input type="text" name="title" value="{{ book.title }}"><br>
+  Author: <input type="text" name="author" value="{{ book.author }}"><br>
+  Price: <input type="number" name="price" value="{{ book.price }}"><br>
+  <input type="submit" value="Update">
+</form>
+
