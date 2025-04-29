@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from .models import Book, Student, Address, Department, Course, Student1
+from .models import Book, Student, Address, Department, Course, Student1, Student2, Student3
 from django.db.models import Q, Count, Sum, Min, Max, Avg
-from .forms import BookForm
+from .forms import BookForm, StudentForm, StudentForm3
 
 # def index(request):
 #     name = request.GET.get("name") or "world!"  #add this line
@@ -120,10 +120,8 @@ def studentsbycity(request):
     data = Address.objects.annotate(student_count=Count('student'))
     return render(request, 'bookmodule/students_by_city.html', {'data': data})
 
-
-
 def complex_query(request):
-    mybooks=books=Book.objects.filter(author__isnull = False).filter(title__icontains='and').filter(edition__gte = 2).exclude(price__lte = 100)[:10]
+    mybooks=Book.objects.filter(author__isnull = False).filter(title__icontains='and').filter(edition__gte = 2).exclude(price__lte = 100)[:10]
     if len(mybooks)>=1:
         return render(request, 'bookmodule/bookList.html', {'books':mybooks})
     else:
@@ -208,5 +206,70 @@ def delete_book_2(id):
     book.delete()
     return redirect('list_books_2')
 
+#----------------------Lab11----------------------------
+def list_student(request):
+    students = Student2.objects.all()
+    return render(request, 'bookmodule/list_student.html', {'students': students})
+
+def add_student(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_student')
+    else:
+        form = StudentForm()
+    return render (request, 'bookmodule/addStudent.html', {'form': form})
+
+def update_student(request, id):
+    student = Student2.objects.get(id=id)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('list_student')
+    else:
+        form = StudentForm(instance=student)
+    return render (request, 'bookmodule/updateStudent.html', {'form': form})
+
+def delete_student(request,id):
+    student = Student2.objects.get(id=id)
+    student.delete()
+    return redirect('list_student')
+#---------------------------task2-------------------------------
+def list_student3(request):
+    students = Student3.objects.all()
+    return render(request, 'bookmodule/list_student2.html', {'students': students})
+
+def add_student3(request):
+    if request.method == 'POST':
+        form = StudentForm3(request.POST, request.FILES)
+        print(request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('list_student3')
+    else:
+        form = StudentForm3()
+    return render (request, 'bookmodule/addStudent2.html', {'form': form})
+
+def update_student3(request, id):
+    student = Student3.objects.get(id=id)
+    if request.method == 'POST':
+        form = StudentForm3(request.POST, request.FILES,instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('list_student3')
+    else:
+        form = StudentForm3(instance=student)
+    return render (request, 'bookmodule/updateStudent2.html', {'form': form})
+
+def delete_student3(request,id):
+    student = Student3.objects.get(id=id)
+    student.delete()
+    return redirect('list_student3')
+   
+def view_image(request):
+    students = Student3.objects.filter(~Q(photo=''), photo__isnull=False)
+    return render(request, 'bookmodule/viewImage.html', {'students': students})
     
 

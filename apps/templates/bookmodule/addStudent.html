@@ -1,0 +1,7 @@
+<h1>Add Student</h1>
+<a href="{% url 'list_student' %}">list Students</a>
+<form method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" value="Add Student">
+</form>

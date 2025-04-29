@@ -1,0 +1,7 @@
+<h1>Updeta Student</h1>
+<a href="{% url 'list_student' %}">list Students</a>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Update Student">
+</form>
