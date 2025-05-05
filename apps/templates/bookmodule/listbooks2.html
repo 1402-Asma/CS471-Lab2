@@ -1,5 +1,6 @@
 <h1>Books List</h1>
-<a href="{% url 'add_book_2' %}">Add New Book Form</a>
+<a href="{% url 'add_book_2' %}">Add New Book Form</a><br>
+<a href="{% url 'logout' %}">logout</a>
 <ul>
   {% for book in books %}
     <li>

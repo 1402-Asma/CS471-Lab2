@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.shortcuts import redirect
 from .models import Book, Student, Address, Department, Course, Student1, Student2, Student3
 from django.db.models import Q, Count, Sum, Min, Max, Avg
 from .forms import BookForm, StudentForm, StudentForm3
+from django.contrib.auth.decorators import login_required
 
 # def index(request):
 #     name = request.GET.get("name") or "world!"  #add this line
@@ -176,10 +176,12 @@ def delete_book(request, id):
 
 
 #------------------------Form------------------------
+@login_required(login_url='login')
 def list_books10_2(request):
     books = Book.objects.all()
     return render(request, 'bookmodule/listbooks2.html', {'books': books})
 
+@login_required(login_url='login')
 def add_book_2(request):
     if request.method == 'POST':
         form = BookForm(request.POST)
@@ -190,6 +192,7 @@ def add_book_2(request):
         form = BookForm()
     return render(request, 'bookmodule/addbook2.html', {'form': form})
 
+@login_required(login_url='login')
 def edit_book_2(request, id):
     book = Book.objects.get(id=id)
     if request.method == 'POST':
@@ -201,7 +204,8 @@ def edit_book_2(request, id):
         form = BookForm(instance=book)
     return render(request, 'bookmodule/editbook2.html', {'form': form})
 
-def delete_book_2(id):
+@login_required(login_url='login')
+def delete_book_2(request,id):
     book = Book.objects.get(id=id)
     book.delete()
     return redirect('list_books_2')

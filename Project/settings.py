@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'apps.bookmodule', 
     'apps.usermodule',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'Project.urls'
@@ -128,3 +131,6 @@ MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_PUBLIC_KEY = '6LdrzS4rAAAAANeA0yBAa7OeC-sEVw7OMIhyuAGD'
+RECAPTCHA_PRIVATE_KEY = '6LdrzS4rAAAAADOy6K3UBfSSsxtwoZEcQiqn-xOb'
